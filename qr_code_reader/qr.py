@@ -1,13 +1,14 @@
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
+import argparse
 
 def imshow(image):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     plt.figure(figsize=(15, 15))
     plt.imshow(image)
 
-def qr_read(img, path_to_save=str):
+def qr_read(img, path_to_save='qr_code_reader/qr_rect_new.jpg'):
     image = cv2.imread(img)
     img_gray = cv2.imread(img, cv2.IMREAD_GRAYSCALE)
     ret, threshold = cv2.threshold(img_gray, 200, 250, cv2.THRESH_BINARY_INV)
@@ -27,5 +28,8 @@ def qr_read(img, path_to_save=str):
         print('QR Code detected!')
         print('Decoded data is', data)
         
-
-qr_read('qr_code_reader/qr_img.png', 'qr_code_reader/qr_rect.jpg')
+parser = argparse.ArgumentParser(description='QR code reader')
+parser.add_argument('test_data', type=str, help='Input path to test image')
+args = parser.parse_args()
+test_data = args.test_data
+qr_read(test_data)
