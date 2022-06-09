@@ -8,7 +8,7 @@ LIBRARY		|    VERSION	|  ANACONDA INSTALLATION
 ----------------|---------------|-----------------------------------------------
 Python 		|     3.8	|         	
 matplotlib 	|    3.5.1	|  conda install -c conda-forge matplotlib 	
-opencv 		|    4.5.5	|  conda install -c pytorch pytorch 
+opencv 		|    4.5.5	|  conda install -c conda-forge opencv 
 numpy   	|    1.22.3	|  conda install numpy
 torch 		|    1.11.0	|  conda install -c pytorch pytorch 
 torchvision	|    0.12.0	|  conda install -c conda-forge torchvision
