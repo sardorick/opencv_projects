@@ -18,4 +18,4 @@ torchvision	|    0.12.0	|  conda install -c conda-forge torchvision
 
 This project takes an image and text to write on the image and returns an image with the written text on it. 
 
-![alt text] (meme_generator/meme.jpg?raw=True)
+![alt text](meme_generator/meme.jpg)
