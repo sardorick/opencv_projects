@@ -1,0 +1,31 @@
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+
+def imshow(image):
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    plt.figure(figsize=(15, 15))
+    plt.imshow(image)
+
+def qr_read(img, path_to_save=str):
+    image = cv2.imread(img)
+    img_gray = cv2.imread(img, cv2.IMREAD_GRAYSCALE)
+    ret, threshold = cv2.threshold(img_gray, 200, 250, cv2.THRESH_BINARY_INV)
+    contours, h = cv2.findContours(threshold, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    sorted_contours = sorted(contours, key = cv2.contourArea, reverse=True)
+    # bounding rectangle
+    x, y, w, h = cv2.boundingRect(sorted_contours[0])
+    copy = image.copy()
+    cv2.rectangle(copy, (x,y), (x+w, y+h), (0, 255, 0), 2)
+    cv2.imwrite(path_to_save, copy)
+    imshow(copy)    
+
+    
+    decoder = cv2.QRCodeDetector()
+    data, points, _ = decoder.detectAndDecode(image)
+    if points is not None:
+        print('QR Code detected!')
+        print('Decoded data is', data)
+        
+
+qr_read('qr_code_reader/qr_img.png', 'qr_code_reader/qr_rect.jpg')

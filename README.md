@@ -28,3 +28,11 @@ This function takes an image, a text to annotate, and path to save the model and
 Instructions on how to run it: open image_annot.ipynb file, run the function with necessary parameters.
 
 ![alt text](image_annotation/dog.jpg)
+
+3. QR Code detector
+
+This function takes an image with QR code and path to save the file. It reads the image, draws a rectangle around the first contour and saves it to the specified path.
+
+Instructions to run it: open the qr.py file and run the function with necessary input parameters.
+
+![alt text](qr_code_reader/qr_rect.jpg)
