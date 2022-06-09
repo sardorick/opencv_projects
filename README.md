@@ -49,6 +49,11 @@ Instructions to run it: open the green.ipynb file and run the merge_green functi
 
 This function recognizes an input handwritten digit and gives the result of the prediction.
 
-Instructions to run it: open the test.py file, run the predict function with the parameters: path to the handwritten number and path to save the cropped version. 
+Instructions to run it: go to the same directory as the file, run the command 'python test.py path to the image'
 
 ![alt text](handwritten_digits/prob.png)
+
+
+====================================================================================================================================
+
+I would like to keep improving the projects and get better results. 

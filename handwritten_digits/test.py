@@ -6,14 +6,15 @@ from model import CNN
 import matplotlib.pyplot as plt
 from PIL import Image
 from torchvision import transforms
-
+import argparse
 # import the trained model for predictions
 
 trained_model = torch.load('/Users/szokirov/Documents/GitHub/MNIST-CNN/model_trained.pth')
 model = CNN()
 model.load_state_dict(trained_model)
 
-#Plotting function
+
+# #Plotting function
 def view_classify(img, ps):
 
     ps = ps.cpu().data.numpy().squeeze()
@@ -28,18 +29,20 @@ def view_classify(img, ps):
     ax2.set_title('Class Probability')
     ax2.set_xlim(0, 1.1)
 
-# function to show images
+# # function to show images
 def imshow(image):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     plt.figure(figsize=(15, 15))
     plt.imshow(image)
+    plt.show()
 
 
-def predict(image=str, path_save=str):
+def predict(image=str, path_save='pred2.png'):
     img = cv2.imread(image)
-    gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    retval, dst= cv2.threshold(gray_img, 0,255, cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
-    contours, h = cv2.findContours(dst, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+    gray_img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    retval, threshold= cv2.threshold(gray_img, 0,255, cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+    contours, h = cv2.findContours(threshold, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     sorted_contours = sorted(contours, key = cv2.contourArea, reverse=True)
     copy = img.copy()
     x, y, w, h = cv2.boundingRect(sorted_contours[0])
@@ -48,13 +51,18 @@ def predict(image=str, path_save=str):
     w = w+600
     h = h+600
     # cv2.rectangle(copy, (x,y), (x+w, y+h), (0, 255, 0), 2)
-    number_itself = img[y:y+h, x:x+w]
-    number_itself = cv2.resize(number_itself, (28, 28))
-    gray_n=number_itself.copy()
-    gray_n=cv2.cvtColor(gray_n, cv2.COLOR_BGR2GRAY)
-    retval, dst= cv2.threshold(gray_n, 0,255, cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+    number_itself = threshold[y:y+h, x:x+w]
+    # imshow(number_itself)
+
+    kernel=cv2.getStructuringElement(cv2.MORPH_CROSS, (15,15))
+
+    dst=cv2.dilate(number_itself, kernel, iterations=10)
+    dst=cv2.morphologyEx(dst, cv2.MORPH_OPEN, kernel)
+    dst=cv2.erode(dst, kernel, iterations=2)    
+    dst=cv2.resize(dst, (28,28))
+
+
     cv2.imwrite(path_save, dst)
-    # imshow(dst)
     img_transformer=transforms.Compose([transforms.Grayscale(),transforms.Resize((28, 28)), 
                 transforms.ToTensor(), 
                 transforms.Normalize(mean=[(0.5)], std=[(0.5)])])
@@ -79,4 +87,8 @@ def predict(image=str, path_save=str):
     plt.xlim(0, 1.1)
     plt.show()
 
-predict('/Users/szokirov/Documents/GitHub/opencv_projects/handwritten_digits/8.jpeg', 'handwritten_digits/predd.png')
+parser = argparse.ArgumentParser(description='Digit classifier')
+parser.add_argument('test_data', type=str, help='Input path to test image')
+args = parser.parse_args()
+test_data = args.test_data
+predict(test_data)
