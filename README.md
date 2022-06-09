@@ -36,3 +36,11 @@ This function takes an image with QR code and path to save the file. It reads th
 Instructions to run it: open the qr.py file and run the function with necessary input parameters.
 
 ![alt text](qr_code_reader/qr_rect.jpg)
+
+4. Green screen changer
+
+This function changes the green background of (or any color, it can be changed easily) images to a selected background. 
+
+Instructions to run it: open the green.ipynb file and run the merge_green function with necessary parameters: path to the object picture, path to background picture, and path to save the image. 
+
+![alt text](green_screen/mergedd.jpg)
