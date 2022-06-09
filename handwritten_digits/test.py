@@ -35,7 +35,7 @@ def imshow(image):
     plt.imshow(image)
 
 
-def preprocess_image(image=str, path_save=str):
+def predict(image=str, path_save=str):
     img = cv2.imread(image)
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     retval, dst= cv2.threshold(gray_img, 0,255, cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
@@ -79,4 +79,4 @@ def preprocess_image(image=str, path_save=str):
     plt.xlim(0, 1.1)
     plt.show()
 
-preprocess_image('/Users/szokirov/Documents/GitHub/opencv_projects/handwritten_digits/2.jpeg', 'predd.png')
+predict('/Users/szokirov/Documents/GitHub/opencv_projects/handwritten_digits/8.jpeg', 'handwritten_digits/predd.png')

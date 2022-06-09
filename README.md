@@ -44,3 +44,11 @@ This function changes the green background of (or any color, it can be changed e
 Instructions to run it: open the green.ipynb file and run the merge_green function with necessary parameters: path to the object picture, path to background picture, and path to save the image. 
 
 ![alt text](green_screen/mergedd.jpg)
+
+5. Handwritten digit recognition
+
+This function recognizes an input handwritten digit and gives the result of the prediction.
+
+Instructions to run it: open the test.py file, run the predict function with the parameters: path to the handwritten number and path to save the cropped version. 
+
+![alt text](handwritten_digits/prob.png)
