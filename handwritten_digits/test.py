@@ -56,9 +56,9 @@ def predict(image=str, path_save='pred2.png'):
 
     kernel=cv2.getStructuringElement(cv2.MORPH_CROSS, (15,15))
 
-    dst=cv2.dilate(number_itself, kernel, iterations=10)
+    dst=cv2.dilate(number_itself, kernel, iterations=15)
     dst=cv2.morphologyEx(dst, cv2.MORPH_OPEN, kernel)
-    dst=cv2.erode(dst, kernel, iterations=2)    
+    dst=cv2.erode(dst, kernel, iterations=5)    
     dst=cv2.resize(dst, (28,28))
 
 
@@ -83,7 +83,7 @@ def predict(image=str, path_save='pred2.png'):
     plt.subplot(1,2,2)
     plt.barh(np.arange(10), probability)
     plt.yticks(np.arange(10))
-    plt.title('Class Probability')
+    plt.title('Class Probability')  
     plt.xlim(0, 1.1)
     plt.show()
 
